@@ -2,7 +2,7 @@
 use strict;
 
 package Callbacks;
-use Graphics::Magick;
+use Image::Magick;
 
 #This will be our cheap-ass 'Model'.
 our %data = (
@@ -42,7 +42,7 @@ sub init {
 	$data{'framecount'} = $gladeXml->get_widget("spGifFrames")->get_value;
 	$data{'rotation'}   = $gladeXml->get_widget("spRotation")->get_value;
 
-	$data{'renders'} = Graphics::Magick->new;
+	$data{'renders'} = Image::Magick->new;
 }
 
 sub on_bnLoadImage_clicked {
@@ -84,7 +84,7 @@ sub on_ebLoaded_drag_data_received {
 sub load_image {
 	my $fileName = shift or die "No image name passed to load_image";
 
-	my $img = Graphics::Magick->new;
+	my $img = Image::Magick->new;
 	my $err = $img->Read($fileName);
 	die $err if $err;
 
@@ -272,7 +272,7 @@ sub render_frame {
 	my ( $szX, $szY ) = @{ $data{'imgsize'} };
 
 	#Create the canvas.
-	my $img = Graphics::Magick->new;
+	my $img = Image::Magick->new;
 	$img->Set( size => $data{'imgsize'}[0] . 'x' . $data{'imgsize'}[1], );
 	$img->Read('xc:white');
 
